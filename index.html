@@ -2,63 +2,30 @@
 <script type="text/javascript"> !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","blockEvents","fetchServerCookie","fetchGlobalID","fetchUserSegments","resetUUID","ready","setSignedMode","setAnonymousMode","set","trackEvent","trackPageview","trackClicks","unblockEvents"],n=0;n<s.length;n++){var c=s[n];e[t].prototype[c]=r(c)}var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.treasuredata.com/sdk/2.5/td.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)}}("Treasure",this);
 </script>
 <script type="text/javascript">
-function setCookie(name,value,days) {
-    var expires = "";
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days*24*60*60*1000));
-        expires = "; expires=" + date.toUTCString();
+  // Configure an instance for your database
+  var td = new Treasure({
+    host: 'api.treasuredata.com',
+    writeKey: '1/c7d044c1da46e68be18517c30880a789f2561237',
+    database: 'weichen_js'
+  });
+  // Enable cross-domain tracking
+  td.set('$global', 'td_global_id', 'td_global_id');
+  // Track pageview information to 'pageviews' table
+  td.trackPageview('pageviews');
+    
+    var successCallback = function (values) {
+        console.log(values);
+  };
+   
+  var errorCallback = function (error) {
+        console.log(error);
+  };
+   
+  td.fetchUserSegments({
+    audienceToken: ['YOUR_PROFILES_API_TOKEN_1'],
+    keys: {
+      someKey: 'someValue',
+      someOtherKey: 'someOtherValue',
     }
-    var thing = name + "=" + (value || "")  + expires + "; path=/";
-    console.log(thing);
-    document.cookie = thing;
-    console.log(getCookie(name));
-}
-
-function getCookie(name) {
-    var nameEQ = name + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0;i < ca.length;i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1,c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
-    }
-    return null;
-}
-
-var td = new Treasure(
-{
-    host: 'in.treasuredata.com',
-    writeKey: '1/c7d044c1da46e68be18517c30880a789f2561237',  // Treasure Data write key
-    database: 'weichen_1',
-    startInSignedMode: true
-})
-
-var successCallback = function (res){
-  var segments = res[0].values // Variable to store the segments that are fetched in the below function
-  var attributes = res[0].attributes // Variable to store the attributes that are fetched in the below function
-  var response = res // Variable to store entire response
-  //console.log(attributes.size());
-  //console.log(response)
-  console.log(segments)
-  setCookie('dm3_td_segments', segments, 365);
-}
-
-var errorCallback = function (error) {console.log('error');};
-
-td_segments();
-
-function td_segments()
-{
-    td.fetchUserSegments(
-        {
-            audienceToken: ['c5e744e9-5489-432b-8a6b-cfdb5e6f5e4d'], //Profile API token defined in Treasure Data console
-            keys:
-            {
-                'user_id': '1aed86e5-80da-4cbf-8f6b-63ff92bbed2d'  //Lookup key user-218@example.com
-            }
-        },
-    successCallback, errorCallback)
-}
-</script>
-text text text
+  }, successCallback, errorCallback)
+</script
