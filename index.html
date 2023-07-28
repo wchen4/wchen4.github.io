@@ -1,33 +1,24 @@
-<!-- Treasure Data -->
-<script type="text/javascript"> !function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","blockEvents","fetchServerCookie","fetchGlobalID","fetchUserSegments","resetUUID","ready","setSignedMode","setAnonymousMode","set","trackEvent","trackPageview","trackClicks","unblockEvents"],n=0;n<s.length;n++){var c=s[n];e[t].prototype[c]=r(c)}var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.treasuredata.com/sdk/2.5/td.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)}}("Treasure",this);
+<!-- Treasure Data --> <script type="text/javascript">
+!function(t,e){if(void 0===e[t]){e[t]=function(){e[t].clients.push(this),this._init=[Array.prototype.slice.call(arguments)]},e[t].clients=[];for(var r=function(t){return function(){return this["_"+t]=this["_"+t]||[],this["_"+t].push(Array.prototype.slice.call(arguments)),this}},s=["addRecord","blockEvents","fetchServerCookie","fetchGlobalID","fetchUserSegments","resetUUID","ready","setSignedMode","setAnonymousMode","set","trackEvent","trackPageview","trackClicks","unblockEvents"],n=0;n<s.length;n++){var c=s[n];e[t].prototype[c]=r(c)}var o=document.createElement("script");o.type="text/javascript",o.async=!0,o.src=("https:"===document.location.protocol?"https:":"http:")+"//cdn.treasuredata.com/sdk/2.5/td.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(o,a)}}("Treasure",this);
 </script>
+
 <script type="text/javascript">
   // Configure an instance for your database
-  
-var td = new Treasure({
-    database: 'weichen_js',
-    writeKey: '1/c7d044c1da46e68be18517c30880a789f2561237',
-    useNewJavaScriptEndpoint: true,
-    host: 'us01.records.in.treasuredata.com'
+  var td = new Treasure({
+    host: 'in.treasuredata.com',
+    writeKey: '10452/125b8e3423673b23a020f3ceb48f54d89f07652b',
+    database: 'weichen_js'
   });
   // Enable cross-domain tracking
+  td.setSignedMode();
   td.set('$global', 'td_global_id', 'td_global_id');
   // Track pageview information to 'pageviews' table
-  td.trackPageview('pageviews');
-    
-    var successCallback = function (values) {
-        console.log(values);
-  };
-   
-  var errorCallback = function (error) {
-        console.log(error);
-  };
-   
-  td.fetchUserSegments({
-    audienceToken: ['85ae466d-0936-4997-a5eb-f72e3dd88e99'],
-    keys: {
-      someKey: 'someValue',
-      someOtherKey: 'someOtherValue',
-    }
-  }, successCallback, errorCallback)
+//  td.trackPageview('pageviews');
+
+  data = {
+    "col1":"123",
+    "col2":"345"  
+  }
+
+td.addRecord('records', data);
 </script>
